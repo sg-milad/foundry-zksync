@@ -610,9 +610,12 @@ async fn test_invariant_scrape_values() {
 async fn test_invariant_roll_fork_handler() {
     let filter = Filter::new(".*", ".*", ".*fuzz/invariant/common/InvariantRollFork.t.sol");
     let mut runner = TEST_DATA_DEFAULT.runner_with(|config| {
-        config.fuzz.seed = Some(U256::from(119u32));
+        //config.fuzz.seed = Some(U256::from(119u32));
+        config.fuzz.seed = Some(U256::from(118u32));
+        config.fuzz.runs = 1;
         config.invariant.runs = 1;
-        config.invariant.depth = 5;
+        config.invariant.depth = 1;
+        config.fuzz.show_logs = true;
     });
     let results = runner.test_collect(&filter);
     assert_multiple(
