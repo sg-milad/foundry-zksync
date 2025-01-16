@@ -696,8 +696,8 @@ async fn test_invariant_selectors_weight() {
     let filter = Filter::new(".*", ".*", ".*fuzz/invariant/common/InvariantSelectorsWeight.t.sol");
     let mut runner = TEST_DATA_DEFAULT.runner_with(|config| {
         config.fuzz.seed = Some(U256::from(119u32));
-        config.invariant.runs = 1;
-        config.invariant.depth = 10;
+        // config.invariant.runs = 1;
+        // config.invariant.depth = 10;
     });
     let results = runner.test_collect(&filter);
     assert_multiple(
