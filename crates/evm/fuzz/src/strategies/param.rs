@@ -129,7 +129,7 @@ pub fn fuzz_param_from_state(
     param: &DynSolType,
     state: &EvmFuzzState,
 ) -> BoxedStrategy<DynSolValue> {
-    let no_zksync_reserved_addresses = state.dictionary_read().no_zksync_reserved_addresses();
+    //let no_zksync_reserved_addresses = state.dictionary_read().no_zksync_reserved_addresses();
 
     // Value strategy that uses the state.
     let value = || {
@@ -157,13 +157,14 @@ pub fn fuzz_param_from_state(
                     // Do not use addresses of deployed libraries as fuzz input.
                     // See <https://github.com/foundry-rs/foundry/issues/8639>.
                     if !deployed_libs.contains(&fuzzed_addr) {
-                        if no_zksync_reserved_addresses {
-                            Some(DynSolValue::Address(foundry_zksync_core::to_safe_address(
-                                fuzzed_addr,
-                            )))
-                        } else {
-                            Some(DynSolValue::Address(fuzzed_addr))
-                        }
+                        // if no_zksync_reserved_addresses {
+                        //     Some(DynSolValue::Address(foundry_zksync_core::to_safe_address(
+                        //         fuzzed_addr,
+                        //     )))
+                        // } else {
+                        //     Some(DynSolValue::Address(fuzzed_addr))
+                        // }
+                        Some(DynSolValue::Address(fuzzed_addr))
                     } else {
                         None
                     }
