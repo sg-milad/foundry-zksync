@@ -610,22 +610,13 @@ async fn test_invariant_scrape_values() {
 async fn test_invariant_roll_fork_handler() {
     eprintln!("In Stderrr before the runner");
     println!("In Stdout before the runner");
-    init_tracing();
     let filter = Filter::new(".*", ".*", ".*fuzz/invariant/common/InvariantRollFork.t.sol");
     let mut runner = TEST_DATA_DEFAULT.runner_with(|config| {
         config.fuzz.seed = Some(U256::from(119u32));
     });
     let results = runner.test_collect(&filter);
-    error!("AAAAAAAAAAAAAH");
     eprintln!("In Stderrr");
     println!("In Stdout");
-    let mut stdout = io::stdout();
-    stdout.write_all(b"To stdout via tokio handle").await.unwrap();
-    stdout.flush().await.unwrap();
-
-    let mut stderr = io::stderr();
-    stderr.write_all(b"To stderr via tokio handle").await.unwrap();
-    stderr.flush().await.unwrap();
 
     assert_multiple(
         &results,
